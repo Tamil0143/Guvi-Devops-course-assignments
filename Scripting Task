@@ -1,0 +1,59 @@
+Task Description:
+
+Create a shell script to print the HTTP error code of guvi.in & print, the success/failure message based on the error code response
+Given a file, replace all occurrence of the word "give" with "learning" from 5th line till the end in only those lines that contain the word "welcome"
+
+code:-
+
+tamilselvan@Tamilselvan:~/bash_scripting$ vi test1.sh
+tamilselvan@Tamilselvan:~/bash_scripting$ ./test1.sh
+HTTP Response Code: 200
+Success: The website is reachable.
+tamilselvan@Tamilselvan:~/bash_scripting$ vi test2.sh
+tamilselvan@Tamilselvan:~/bash_scripting$ ./test1.sh
+HTTP Response Code: 200
+Success: The website is reachable.
+tamilselvan@Tamilselvan:~/bash_scripting$ ./test2.sh
+-bash: ./test2.sh: Permission denied
+tamilselvan@Tamilselvan:~/bash_scripting$ chmod +x test2.sh
+tamilselvan@Tamilselvan:~/bash_scripting$ ./test2.sh
+-bash: ./test2.sh: /bin/bash#!/bin/bash: bad interpreter: No such file or directory
+tamilselvan@Tamilselvan:~/bash_scripting$ cd ~/bash_scripting
+tamilselvan@Tamilselvan:~/bash_scripting$ nano replace_script.sh
+tamilselvan@Tamilselvan:~/bash_scripting$ chmod +x replace_script.sh
+tamilselvan@Tamilselvan:~/bash_scripting$ ./replace_script.sh
+Replacement completed from line 5 onwards for lines containing 'welcome'.
+tamilselvan@Tamilselvan:~/bash_scripting$ cat test2.sh
+#!/bin/bash#!/bin/bash
+
+# Task 1: Check HTTP error code for guvi.in
+response_code=$(curl -o /dev/null -s -w "%{http_code}\n" https://www.guvi.in)
+
+echo "HTTP Response Code: $response_code"
+
+if [ $response_code -eq 200 ]; then
+    echo "Success: The website is reachable."
+else
+    echo "Failure: The website returned HTTP error code $response_code."
+fi
+
+# Task 2: Replace "learning" with "learning" from 5th line onwards in lines containing "welcome"
+# Input file name
+file="input.txt"
+
+# Make a backup of the original file
+cp "$file" "${file}.bak"
+
+# Use awk to perform the replacement in the specified conditions
+awk 'NR >= 5 && /welcome/ { gsub(/learning/, "learning") } { print }' "$file" > temp_file && mv temp_file "$file"
+
+echo "Replacement completed from line 5 onwards for lines containing 'welcome'."
+
+tamilselvan@Tamilselvan:~/bash_scripting$ ls
+bash_scripting  replace_script.sh  sample.sh  test.sh  test1.sh  test2.sh
+tamilselvan@Tamilselvan:~/bash_scripting$
+
+
+
+
+
