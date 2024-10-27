@@ -1,0 +1,57 @@
+### 1. **Dockerfile**:
+```dockerfile
+# Use a lightweight web server image
+FROM nginx:alpine
+
+# Copy the HTML file to the web server directory
+COPY demo.html /usr/share/nginx/html/index.html
+
+# Expose port 80 for the web server
+EXPOSE 80
+```
+
+### 2. **docker-compose.yml**:
+```yaml
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8081:80"
+```
+
+### 3. **demo.html** (Place in the same directory)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light background */
+        }
+        h1 {
+            color: #4CAF50; /* Green color */
+        }
+        p {
+            color: #333; /* Dark gray color */
+        }
+    </style>
+</head>
+<body>
+    <h1>Tamilselvan B T</h1>
+    <p>Profession: Software Developer</p>
+    <p>Description: Passionate about technology and coding.</p>
+</body>
+</html>
+
+```
+
+### **Steps to Run**:
+1. Place all three files in the same directory.
+2. Run `docker-compose up` in the terminal.
+3. Open a browser and go to `http://localhost:8080` to view the webpage with your details.
