@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    image: your-dockerhub-username/custom-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./custom_content:/var/opt/nginx
